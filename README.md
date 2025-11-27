@@ -49,3 +49,48 @@ Right Fun – Last 2 characters of the month name.
 Mid Fun – Extracts characters from the middle of the month name.
 
 Length of Characters – Counts total characters in the month name.
+
+__________________________________________________________________
+
+DAX Code With Description:
+
+Dataset = CALENDAR(DATE(2024,01,01), DATE(2025,01,01))   
+-- Creates a date table from Jan 1, 2024 to Jan 1, 2025
+
+MonthNum = MONTH('Dataset'[Date].[Date])  
+-- Extracts the month number (1–12) from each date
+
+Weekday = WEEKDAY('Dataset'[Date].[Date],1)  
+-- Returns numeric weekday (1 = Sunday, 7 = Saturday)
+
+WeekNum = WEEKNUM('Dataset'[Date].[Date],1)  
+-- Returns the week number of the year (starting on Sunday)
+
+Month Name = FORMAT('Dataset'[Date].[Date],"MMMM")  
+-- Extracts the full month name (e.g., "January")
+
+Month Short Name = FORMAT('Dataset'[Date].[Date],"MMM")  
+-- Extracts the 3-letter month abbreviation (e.g., "Jan")
+
+Day Short Name = FORMAT('Dataset'[Date].[Date],"DDD")  
+-- Extracts 3-letter day name (e.g., "Mon")
+
+Con Month Day short Name =
+    CONCATENATE('Dataset'[Month Short Name],'Dataset'[Day Short Name])  
+-- Joins month short name + day short name (e.g., "JanMon")
+
+Con Month Day short Name with Delimiter =
+    CONCATENATE(CONCATENATE('Dataset'[Month Short Name],"-"),'Dataset'[Day Short Name])  
+-- Joins values with a hyphen (e.g., "Jan-Mon")
+
+Left Fun = LEFT('Dataset'[Month Name],3)  
+-- Extracts the first 3 characters of the full month name
+
+Right Fun = RIGHT('Dataset'[Month Name],2)  
+-- Extracts the last 2 characters of the month name
+
+Length of characters = LEN('Dataset'[Month Name])  
+-- Returns number of characters in the month name
+
+Mid Fun = MID('Dataset'[Month Name],1,2)  
+-- Extracts characters starting from position 1, taking 2 characters (substring)
